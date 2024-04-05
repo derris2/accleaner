@@ -1,4 +1,4 @@
-package com.app.cleanspace.machine;
+package com.example.accleaner.machine;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.remote.innopharm.R;
-import com.app.cleanspace.model.Machine;
+import com.example.accleaner.R;
+import com.example.accleaner.model.*;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class MachinesAdapter extends RecyclerView.Adapter<MachinesAdapter.Machin
     @NonNull
     @Override
     public MachinesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view   = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_machines, parent, false);
+        View view   = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, parent, false);
         return new MachinesViewHolder(view);
     }
 
@@ -54,9 +54,9 @@ public class MachinesAdapter extends RecyclerView.Adapter<MachinesAdapter.Machin
         private TextView            tvMachineName, tvMacAddress;
         public MachinesViewHolder(@NonNull View itemView) {
             super(itemView);
-            clRoot          = itemView.findViewById(R.id.clRoot);
-            tvMachineName    = itemView.findViewById(R.id.tvMachineName);
-            tvMacAddress    = itemView.findViewById(R.id.tvMacAddress);
+//            clRoot          = itemView.findViewById(R.id.clRoot);
+//            tvMachineName    = itemView.findViewById(R.id.tvMachineName);
+//            tvMacAddress    = itemView.findViewById(R.id.tvMacAddress);
         }
     }
 }

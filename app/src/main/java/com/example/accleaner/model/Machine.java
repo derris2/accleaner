@@ -1,4 +1,4 @@
-package com.app.cleanspace.model;
+package com.example.accleaner.model;
 
 public class Machine {
     private int      id;
