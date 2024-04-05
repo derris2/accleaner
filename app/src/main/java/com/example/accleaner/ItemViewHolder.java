@@ -6,13 +6,13 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ItemViewHolder extends RecyclerView.ViewHolder {
-    TextView textView;
-    TextView subTextView;
+    TextView tvMachineId, tvMachineName, tvMachineTypeName;
 
     public ItemViewHolder(View itemView) {
         super(itemView);
-        textView = itemView.findViewById(R.id.textView);
-        subTextView = itemView.findViewById(R.id.subTextView);
+        tvMachineId = itemView.findViewById(R.id.tvMachineId);
+        tvMachineName = itemView.findViewById(R.id.tvMachineName);
+        tvMachineTypeName = itemView.findViewById(R.id.tvMachineTypeName);
     }
 }
 

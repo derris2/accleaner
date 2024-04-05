@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvMachineId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -27,7 +27,15 @@
             android:text="Sample Text"/>
 
         <TextView
-            android:id="@+id/subTextView"
+            android:id="@+id/tvMachineName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:paddingTop="8dp"
+            android:text="Sub Text" />
+
+        <TextView
+            android:id="@+id/tvMachineTypeName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"

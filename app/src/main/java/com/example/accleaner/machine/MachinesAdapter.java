@@ -34,14 +34,15 @@ public class MachinesAdapter extends RecyclerView.Adapter<MachinesAdapter.Machin
     @Override
     public void onBindViewHolder(@NonNull MachinesViewHolder holder, int position) {
         Machine machine = machineList.get(position);
+        holder.tvMachineName.setText(machine.getId());
         holder.tvMachineName.setText(machine.getName());
-        holder.tvMacAddress.setText(machine.getMacAddress());
-        holder.clRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        holder.tvMachineTypeName.setText(machine.getMachineType());
+//        holder.clRoot.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -50,13 +51,14 @@ public class MachinesAdapter extends RecyclerView.Adapter<MachinesAdapter.Machin
     }
 
     public class MachinesViewHolder extends RecyclerView.ViewHolder {
-        private ConstraintLayout    clRoot;
-        private TextView            tvMachineName, tvMacAddress;
+//        private ConstraintLayout    clRoot;
+        private TextView            tvMachineId, tvMachineName, tvMachineTypeName;
         public MachinesViewHolder(@NonNull View itemView) {
             super(itemView);
 //            clRoot          = itemView.findViewById(R.id.clRoot);
-//            tvMachineName    = itemView.findViewById(R.id.tvMachineName);
-//            tvMacAddress    = itemView.findViewById(R.id.tvMacAddress);
+            tvMachineId    = itemView.findViewById(R.id.tvMachineId);
+            tvMachineName    = itemView.findViewById(R.id.tvMachineName);
+            tvMachineTypeName    = itemView.findViewById(R.id.tvMachineTypeName);
         }
     }
 }

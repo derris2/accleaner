@@ -39,14 +39,18 @@ public class MainActivity extends AppCompatActivity {
         machinesAdapter = new MachinesAdapter(this, machineList);
         recyclerView.setAdapter(machinesAdapter);
 
-
+        try {
+            generateDummyDataDerris();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void generateDummyData() {
         for (int i = 0; i < 20; i++) {
             itemList.add("Item " + (i + 1));
         }
-        adapter.notifyDataSetChanged();
+        machinesAdapter.notifyDataSetChanged();
     }
 
     private void generateDummyDataDerris() throws JSONException {
@@ -85,11 +89,11 @@ public class MainActivity extends AppCompatActivity {
             Machine machine = new Machine();
             machine.setId(jsonObject.getString("machine_id"));
             machine.setName(jsonObject.getString("machine_name"));
-            machine.setMachineType(jsonObject.getString("machine_type"));
+            machine.setMachineType(jsonObject.getString("machine_type_name"));
             machineList.add(machine);
         }
 
-        adapter.notifyDataSetChanged();
+        machinesAdapter.notifyDataSetChanged();
     }
 
 
