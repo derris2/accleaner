@@ -1,7 +1,7 @@
 package com.example.accleaner.model;
 
 public class Machine {
-    private int      id;
+    private String      id;
     private String      name;
     private String      type;
     private String      macAddress;
@@ -65,11 +65,11 @@ public class Machine {
     public Machine() {
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
