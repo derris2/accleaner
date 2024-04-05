@@ -34,7 +34,7 @@ public class MachinesAdapter extends RecyclerView.Adapter<MachinesAdapter.Machin
     @Override
     public void onBindViewHolder(@NonNull MachinesViewHolder holder, int position) {
         Machine machine = machineList.get(position);
-        holder.tvMachineName.setText(machine.getId());
+        holder.tvMachineId.setText(machine.getId());
         holder.tvMachineName.setText(machine.getName());
         holder.tvMachineTypeName.setText(machine.getMachineType());
 //        holder.clRoot.setOnClickListener(new View.OnClickListener() {

@@ -10,8 +10,6 @@ public class Machine {
     private String      connectWith; // B | W, B for Bluetooth and W for Wifi
     private String      ip;
 
-    private String      machineId;
-
     private String      machineType;
     private String      machineName;
 
