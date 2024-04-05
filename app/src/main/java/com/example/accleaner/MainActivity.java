@@ -11,14 +11,11 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ItemAdapter adapter;
     private List<String> itemList;
-    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        dbHelper = new DatabaseHelper(this);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -27,12 +24,13 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ItemAdapter(itemList);
         recyclerView.setAdapter(adapter);
 
-        fetchDataFromDatabase();
+        generateDummyData();
     }
 
-    private void fetchDataFromDatabase(){
-        itemList.clear();
-        itemList.addAll(dbHelper.getAllData());
+    private void generateDummyData() {
+        for (int i = 0; i < 20; i++) {
+            itemList.add("Item " + (i + 1));
+        }
         adapter.notifyDataSetChanged();
     }
 }
