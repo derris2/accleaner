@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 20; i++) {
             itemList.add("Item " + (i + 1));
         }
-        machinesAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
     private void generateDummyDataDerris() throws JSONException {
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             machineList.add(machine);
         }
 
-        machinesAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
 
