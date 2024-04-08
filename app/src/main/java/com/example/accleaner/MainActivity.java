@@ -1,11 +1,21 @@
 package com.example.accleaner;
 
-import com.example.accleaner.machine.MachinesAdapter;
-import com.example.accleaner.model.Machine;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.accleaner.machine.MachinesAdapter;
+import com.example.accleaner.model.Machine;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,11 +23,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.accleaner.R;
+
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-
     private MachinesAdapter machinesAdapter;
     private List<Machine> machineList;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,61 +39,104 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerView);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         machineList = new ArrayList<>();
         machinesAdapter = new MachinesAdapter(this, machineList);
         recyclerView.setAdapter(machinesAdapter);
 
-        try {
-            generateDummyDataDerris();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Panggil metode untuk memuat ulang data
+                loadData();
+            }
+        });
+
+        // Mulai memuat data saat aktivitas pertama kali dibuat
+        loadData();
+
+        String urlGetPair = "http://192.168.0.172:8080/smart-building/master/machine";
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlGetPair, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Mengambil JSONArray dari respons JSON
+                            JSONArray jsonArray = response.getJSONArray("data");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                // Membuat objek Machine dari setiap objek JSON dalam array
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                Machine machine = new Machine();
+                                machine.setId(jsonObject.getString("machine_id"));
+                                machine.setType(jsonObject.getString("machine_type_id"));
+                                machine.setLocationId(jsonObject.getString("location_id"));
+                                machine.setLocationName(jsonObject.getString("location_name"));
+                                machine.setName(jsonObject.getString("machine_name"));
+                                machine.setMachineTypeName(jsonObject.getString("machine_type_name"));
+                                machineList.add(machine);
+                            }
+                            machinesAdapter.notifyDataSetChanged();
+
+                            // Tampilkan pesan toast untuk memberitahu pengguna bahwa data berhasil diambil
+                            Toast.makeText(MainActivity.this, "Data berhasil diambil dari URL: " + urlGetPair, Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "Error parsing JSON: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this, "ErrorL: " + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
     }
+    private void loadData() {
+        machineList.clear(); // Bersihkan data sebelum memuat ulang
+        machinesAdapter.notifyDataSetChanged(); // Notifikasi adapter bahwa data telah berubah
 
-    private void generateDummyDataDerris() throws JSONException {
+        String urlGetPair = "http://192.168.0.172:8080/smart-building/master/machine";
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlGetPair, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Mengambil JSONArray dari respons JSON
+                            JSONArray jsonArray = response.getJSONArray("data");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                // Membuat objek Machine dari setiap objek JSON dalam array
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                Machine machine = new Machine();
+                                machine.setId(jsonObject.getString("machine_id"));
+                                machine.setType(jsonObject.getString("machine_type_id"));
+                                machine.setLocationId(jsonObject.getString("location_id"));
+                                machine.setLocationName(jsonObject.getString("location_name"));
+                                machine.setName(jsonObject.getString("machine_name"));
+                                machine.setMachineTypeName(jsonObject.getString("machine_type_name"));
+                                machineList.add(machine);
+                            }
+                            machinesAdapter.notifyDataSetChanged();
 
-        JSONArray jsonArray = new JSONArray();
+                            // Tampilkan pesan toast untuk memberitahu pengguna bahwa data berhasil diambil
+                            Toast.makeText(MainActivity.this, "Data berhasil diambil dari URL: " + urlGetPair, Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "Error parsing JSON: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
 
-        try {
-            // Create dummy machine data
-            JSONObject machine1 = new JSONObject();
-            machine1.put("machine_id", 1);
-            machine1.put("machine_name", "Machine 1");
-            machine1.put("machine_type_name", "Type A");
-
-            JSONObject machine2 = new JSONObject();
-            machine2.put("machine_id", 2);
-            machine2.put("machine_name", "Machine 2");
-            machine2.put("machine_type_name", "Type B");
-
-            JSONObject machine3 = new JSONObject();
-            machine3.put("machine_id", 3);
-            machine3.put("machine_name", "Machine 3");
-            machine3.put("machine_type_name", "Type C");
-
-            // Add the dummy machine data to the JSONArray
-            jsonArray.put(machine1);
-            jsonArray.put(machine2);
-            jsonArray.put(machine3);
-
-            // Now you can use this jsonArray as the data you received from the server
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        for (int i = 0;i<jsonArray.length();i++){
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            Machine machine = new Machine();
-            machine.setId(jsonObject.getString("machine_id"));
-            machine.setName(jsonObject.getString("machine_name"));
-            machine.setMachineType(jsonObject.getString("machine_type_name"));
-            machineList.add(machine);
-        }
-
-        machinesAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
     }
-
-
 }

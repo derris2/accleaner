@@ -23,7 +23,6 @@ import java.util.List;
 
 import com.example.accleaner.machine.MachinesAdapter;
 import com.example.accleaner.model.Machine;
-import com.remote.innopharm.BuildConfig;
 
 public class DashboardActivity {
     private Context context;
@@ -41,7 +40,7 @@ public class DashboardActivity {
     }
 
     private void getDataPair() {
-        String urlGetPair = BuildConfig.FUNCTION_URL + "/smart-building/master/machine/";
+        String urlGetPair =  "https://192.168.0.172/" + "/smart-building/master/machine/";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlGetPair, null, new Response.Listener<JSONObject>() {
             @Override
