@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private ItemAdapter adapter;
-    private List<String> itemList;
 
     private MachinesAdapter machinesAdapter;
     private List<Machine> machineList;
@@ -29,12 +27,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-//        itemList = new ArrayList<>();
-//        adapter = new ItemAdapter(itemList);
-//        recyclerView.setAdapter(adapter);
-//
-//        generateDummyData();
-
         machineList = new ArrayList<>();
         machinesAdapter = new MachinesAdapter(this, machineList);
         recyclerView.setAdapter(machinesAdapter);
@@ -44,13 +36,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void generateDummyData() {
-        for (int i = 0; i < 20; i++) {
-            itemList.add("Item " + (i + 1));
-        }
-        machinesAdapter.notifyDataSetChanged();
     }
 
     private void generateDummyDataDerris() throws JSONException {

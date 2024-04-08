@@ -1,66 +1,17 @@
 package com.example.accleaner.model;
 
 public class Machine {
-    private String      id;
-    private String      name;
-    private String      type;
-    private String      macAddress;
-    private String      location;
-    private Boolean     isConnect;
-    private String      connectWith; // B | W, B for Bluetooth and W for Wifi
-    private String      ip;
-
-    private String      machineType;
-    private String      machineName;
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    private String      IPAddress;
-    private String      VendorName;
-    private String      Power;
-    private String      FanSpeed;
-    private String      TemperatureTarget;
-    private String      Temperature;
-    private String      TemperatureAC;
-
-
-    public String getPower() {
-        return Power;
-    }
-
-    public void setPower(String power) {
-        Power = power;
-    }
-
-    public String getFanSpeed() {
-        return FanSpeed;
-    }
-
-    public void setFanSpeed(String fanSpeed) {
-        FanSpeed = fanSpeed;
-    }
-
-    public String getTemperatureTarget() {
-        return TemperatureTarget;
-    }
-
-    public void setTemperatureTarget(String temperatureTarget) {
-        TemperatureTarget = temperatureTarget;
-    }
-
-    public String getTemperature() {
-        return Temperature;
-    }
-
-    public void setTemperature(String temperature) {
-        Temperature = temperature;
-    }
+    private String id;
+    private String name;
+    private String type;
+    private String macAddress;
+    private String locationId; // ID lokasi
+    private String locationName; // Nama lokasi
+    private Boolean isConnect;
+    private String connectWith; // B | W, B for Bluetooth and W for Wifi
+    private String ip;
+    private String IPAddress;
+    private String machineTypeName; // Nama jenis mesin
 
     public Machine() {
     }
@@ -97,12 +48,20 @@ public class Machine {
         this.macAddress = macAddress;
     }
 
-    public String getLocation() {
-        return location;
+    public String getLocationId() {
+        return locationId;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 
     public Boolean getConnect() {
@@ -121,6 +80,14 @@ public class Machine {
         this.connectWith = connectWith;
     }
 
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
     public String getIPAddress() {
         return IPAddress;
     }
@@ -129,35 +96,11 @@ public class Machine {
         this.IPAddress = IPAddress;
     }
 
-    public String getVendorName() {
-        return VendorName;
+    public String getMachineTypeName() {
+        return machineTypeName;
     }
 
-    public void setVendorName(String vendorName) {
-        VendorName = vendorName;
-    }
-
-    public String getMachineType() {
-        return machineType;
-    }
-
-    public void setMachineType(String machineType) {
-        this.machineType = machineType;
-    }
-
-    public String getMachineName() {
-        return machineName;
-    }
-
-    public void setMachineName(String machineName) {
-        this.machineName = machineName;
-    }
-
-    public String getTemperatureAC() {
-        return TemperatureAC;
-    }
-
-    public void setTemperatureAC(String temperatureAC) {
-        TemperatureAC = temperatureAC;
+    public void setMachineTypeName(String machineTypeName) {
+        this.machineTypeName = machineTypeName;
     }
 }
