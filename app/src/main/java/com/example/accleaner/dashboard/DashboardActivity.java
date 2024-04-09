@@ -40,9 +40,9 @@ public class DashboardActivity {
     }
 
     private void getDataPair() {
-        String urlGetPair =  "https://192.168.0.172/" + "/smart-building/master/machine/";
+        String urlGetMachine =  "https://192.168.0.172/" + "/smart-building/master/machine/";
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlGetPair, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlGetMachine, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {

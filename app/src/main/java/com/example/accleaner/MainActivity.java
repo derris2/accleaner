@@ -1,8 +1,15 @@
 package com.example.accleaner;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
+import android.content.Intent;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +23,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.accleaner.machine.MachinesAdapter;
 import com.example.accleaner.model.Machine;
+import com.example.accleaner.schedule.ScheduleActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,12 +34,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.accleaner.R;
+import com.example.accleaner.machine.MachinesAdapter;
+
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private MachinesAdapter machinesAdapter;
     private List<Machine> machineList;
-
+    private MachinesAdapter machinesAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -49,25 +59,19 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Panggil metode untuk memuat ulang data
                 loadData();
             }
         });
 
-        // Mulai memuat data saat aktivitas pertama kali dibuat
-        loadData();
-
-        String urlGetPair = "http://192.168.0.172:8080/smart-building/master/machine";
+        String urlGetMachine = "http://192.168.0.172:8080/smart-building/master/machine";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlGetPair, null,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlGetMachine, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            // Mengambil JSONArray dari respons JSON
                             JSONArray jsonArray = response.getJSONArray("data");
                             for (int i = 0; i < jsonArray.length(); i++) {
-                                // Membuat objek Machine dari setiap objek JSON dalam array
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 Machine machine = new Machine();
                                 machine.setId(jsonObject.getString("machine_id"));
@@ -79,9 +83,6 @@ public class MainActivity extends AppCompatActivity {
                                 machineList.add(machine);
                             }
                             machinesAdapter.notifyDataSetChanged();
-
-                            // Tampilkan pesan toast untuk memberitahu pengguna bahwa data berhasil diambil
-                            Toast.makeText(MainActivity.this, "Data berhasil diambil dari URL: " + urlGetPair, Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(MainActivity.this, "Error parsing JSON: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -94,14 +95,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         requestQueue.add(jsonObjectRequest);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.navigation_home) {
+//                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+//                    startActivity(intent);
+                    Toast.makeText(MainActivity.this, "10*", Toast.LENGTH_LONG).show();
+                    return true;
+                } else if (id == R.id.navigation_schedule) {
+                    Intent intent = new Intent(MainActivity.this, ScheduleActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (id == R.id.navigation_profile) {
+//                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+//                    startActivity(intent);
+                    Toast.makeText(MainActivity.this, "Profile clicked", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
+
     private void loadData() {
         machineList.clear(); // Bersihkan data sebelum memuat ulang
         machinesAdapter.notifyDataSetChanged(); // Notifikasi adapter bahwa data telah berubah
 
-        String urlGetPair = "http://192.168.0.172:8080/smart-building/master/machine";
+        String urlGetMachine = "http://192.168.0.172:8080/smart-building/master/machine";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlGetPair, null,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlGetMachine, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -121,9 +148,7 @@ public class MainActivity extends AppCompatActivity {
                                 machineList.add(machine);
                             }
                             machinesAdapter.notifyDataSetChanged();
-
-                            // Tampilkan pesan toast untuk memberitahu pengguna bahwa data berhasil diambil
-                            Toast.makeText(MainActivity.this, "Data berhasil diambil dari URL: " + urlGetPair, Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "Refresh Berhasil", Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(MainActivity.this, "Error parsing JSON: " + e.getMessage(), Toast.LENGTH_LONG).show();

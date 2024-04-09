@@ -6,7 +6,7 @@
 
     <!-- SwipeRefreshLayout -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+        android:id="@+id/swipeRefreshLayout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -20,7 +20,7 @@
                 android:id="@+id/textViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Machine"
+                android:text="Schedule"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
@@ -42,21 +42,14 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp" />
 
-            <!-- Button for calendar -->
-            <Button
-                android:id="@+id/buttonCalendar"
+            <!-- TextView for showing warning message -->
+            <TextView
+                android:id="@+id/tvScheduleWarn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="8dp"
-                android:drawableStart="@drawable/ic_baseline_calendar"
-                android:text="Calendar"
-                android:textSize="16sp"
-                android:textColor="@color/colorPrimaryDark"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:text="No schedule"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

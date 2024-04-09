@@ -34,15 +34,9 @@ public class MachinesAdapter extends RecyclerView.Adapter<MachinesAdapter.Machin
     @Override
     public void onBindViewHolder(@NonNull MachinesViewHolder holder, int position) {
         Machine machine = machineList.get(position);
-        holder.tvMachineId.setText(machine.getId());
         holder.tvMachineName.setText(machine.getName());
         holder.tvMachineTypeName.setText(machine.getMachineTypeName());
-//        holder.clRoot.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        holder.tvLocation.setText(machine.getLocationName());
     }
 
     @Override
@@ -51,14 +45,12 @@ public class MachinesAdapter extends RecyclerView.Adapter<MachinesAdapter.Machin
     }
 
     public class MachinesViewHolder extends RecyclerView.ViewHolder {
-//        private ConstraintLayout    clRoot;
-        private TextView            tvMachineId, tvMachineName, tvMachineTypeName;
+        private TextView            tvMachineName, tvMachineTypeName, tvLocation;
         public MachinesViewHolder(@NonNull View itemView) {
             super(itemView);
-//            clRoot          = itemView.findViewById(R.id.clRoot);
-            tvMachineId    = itemView.findViewById(R.id.tvMachineId);
             tvMachineName    = itemView.findViewById(R.id.tvMachineName);
             tvMachineTypeName    = itemView.findViewById(R.id.tvMachineTypeName);
+            tvLocation    = itemView.findViewById(R.id.tvLocation);
         }
     }
 }

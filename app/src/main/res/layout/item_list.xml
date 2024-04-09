@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <!-- Image View -->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="50dp"
@@ -20,13 +21,16 @@
             android:layout_margin="16dp"
             android:background="@drawable/circular_background"/>
 
+        <!-- Text Layout -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
 
+            <!-- Text Views -->
             <TextView
-                android:id="@+id/tvMachineId"
+                android:id="@+id/tvMachineName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
@@ -34,20 +38,58 @@
                 android:text="Sample Text"/>
 
             <TextView
-                android:id="@+id/tvMachineName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:paddingTop="8dp"
-                android:text="Sub Text" />
-
-            <TextView
                 android:id="@+id/tvMachineTypeName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:paddingBottom="8dp"
+                android:paddingTop="4dp"
                 android:text="Sub Text" />
+
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sub Text"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <!-- Button Layout -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+            <!-- First Button -->
+            <ImageButton
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_baseline_list" />
+
+            <!-- Second Button -->
+            <ImageButton
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_baseline_history" />
+
+            <!-- Third Button -->
+            <ImageButton
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_baseline_settings" />
+
         </LinearLayout>
 
     </LinearLayout>
